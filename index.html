@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blerti Daci — Email Marketing Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f3ec;
+    --paper-2:#efeadf;
+    --ink:#20262b;
+    --teal:#1f6f6b;
+    --teal-deep:#154f4c;
+    --line:#d8d2c2;
+    --muted:#6b6558;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.55;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    margin:0;
+  }
+
+  /* ---------- top-level page header (reused portfolio shell) ---------- */
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px;}
+  header.hero{
+    padding:64px 0 34px;
+    border-bottom:1px solid var(--line);
+    text-align:center;
+  }
+  header.hero h1{font-size:clamp(2rem,5vw,2.7rem);letter-spacing:-0.01em;}
+  header.hero p.role{
+    font-family:'Fraunces',serif;
+    font-size:1.1rem;
+    color:var(--teal-deep);
+    margin-top:6px;
+  }
+  header.hero .contact{margin-top:16px;font-size:0.9rem;color:var(--muted);}
+  header.hero .contact a{color:var(--teal-deep);text-decoration:none;border-bottom:1px solid var(--teal-deep);}
+
+  .note{max-width:640px;margin:26px auto 0;padding:0 24px;text-align:center;}
+  .note p{font-size:0.9rem;color:var(--muted);font-style:italic;}
+
+  nav.jump{
+    display:flex;justify-content:center;flex-wrap:wrap;gap:22px;
+    margin:30px 0 0;padding:0 0 40px;border-bottom:1px solid var(--line);
+    font-size:0.85rem;
+  }
+  nav.jump span{padding:0 8px;}
+  nav.jump a{color:var(--teal-deep);text-decoration:none;border-bottom:1px dotted var(--teal-deep);margin:0 4px;}
+
+  /* ---------- brand section shell ---------- */
+  section.project{padding:60px 0;border-bottom:1px solid var(--line);}
+  section.project:last-of-type{border-bottom:none;}
+  .brand-intro{text-align:center;margin-bottom:30px;}
+  .brand-intro .kicker{font-size:0.8rem;color:#8a8474;margin-bottom:4px;}
+  .brand-intro h2{font-size:1.8rem;margin-bottom:6px;}
+  .brand-intro .desc{max-width:52ch;margin:0 auto;font-size:0.94rem;color:var(--muted);}
+
+  .meta{
+    max-width:640px;margin:26px auto 0;
+    display:grid;grid-template-columns:120px 1fr;
+    row-gap:10px;column-gap:16px;font-size:0.92rem;
+  }
+  .meta dt{color:var(--muted);}
+  .meta dd{margin:0;}
+
+  .row-label{
+    text-align:center;
+    font-size:0.8rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--muted);
+    margin:38px 0 18px;
+  }
+
+  .row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start;}
+  @media (max-width:860px){.row{grid-template-columns:1fr;max-width:420px;margin:0 auto;}}
+  .cap{font-size:0.78rem;color:#7a7466;margin-bottom:10px;padding-left:2px;}
+
+  .mock{
+    background:#fff;border-radius:10px;overflow:hidden;
+    box-shadow:0 1px 2px rgba(20,18,12,0.06), 0 10px 28px rgba(20,18,12,0.09);
+  }
+  .mock .inbox-strip{background:#F4F1EA;border-bottom:1px solid #E3DFD2;padding:10px 16px;}
+  .mock .inbox-strip .subj{font-size:0.85rem;font-weight:600;color:#2b2a25;margin-bottom:2px;}
+  .mock .inbox-strip .prev{font-size:0.78rem;color:#807a6c;}
+
+  footer.page-footer{padding:40px 0 80px;font-size:0.85rem;color:var(--muted);text-align:center;}
+
+  /* ---------- Skincare theme (Lumen & Bloom) ---------- */
+  .brand-skincare{--head-font:'Cormorant Garamond',serif;--body-font:'Jost',sans-serif;--bg:#F6F3EA;--bink:#2F3B2A;--baccent:#7C9070;}
+  .brand-skincare .email-header{background:var(--bg);padding:26px 24px 18px;text-align:center;}
+  .brand-skincare .wordmark{font-family:var(--head-font);font-style:italic;font-weight:600;font-size:1.5rem;color:var(--bink);}
+  .brand-skincare .bhero{padding:6px 26px 22px;text-align:center;background:var(--bg);}
+  .brand-skincare .bhero svg{margin:4px auto 14px;width:34px;height:34px;}
+  .brand-skincare .bhero h3{font-family:var(--head-font);font-weight:500;font-size:1.5rem;line-height:1.25;color:var(--bink);margin:0 0 10px;}
+  .brand-skincare .body-copy{padding:22px 26px 8px;font-family:var(--body-font);font-size:0.87rem;line-height:1.7;color:#3c4436;}
+  .brand-skincare .body-copy p{margin:0 0 14px;}
+  .brand-skincare .cta{display:block;width:calc(100% - 52px);margin:6px 26px 26px;text-align:center;background:var(--bink);color:#F6F3EA;font-family:var(--body-font);font-weight:500;font-size:0.85rem;padding:13px 0;border-radius:3px;text-decoration:none;}
+  .brand-skincare .bfooter{background:#EFEAdd;padding:16px 26px;font-family:var(--body-font);font-size:0.72rem;color:#8a8f7f;text-align:center;line-height:1.6;}
+
+  /* ---------- Apparel theme (Marlowe & Rhys) ---------- */
+  .brand-apparel{--head-font:'Space Grotesk',sans-serif;--body-font:'IBM Plex Sans',sans-serif;--bg:#EDE6D6;--bink:#262420;--olive:#4A5240;}
+  .brand-apparel .email-header{background:var(--bink);padding:20px 24px;text-align:center;}
+  .brand-apparel .wordmark{font-family:var(--head-font);font-weight:700;font-size:1.1rem;color:#EDE6D6;letter-spacing:0.04em;}
+  .brand-apparel .bhero{background:var(--olive);padding:32px 26px;text-align:left;}
+  .brand-apparel .bhero svg{width:28px;height:28px;margin-bottom:14px;}
+  .brand-apparel .bhero h3{font-family:var(--head-font);font-weight:600;font-size:1.3rem;line-height:1.3;color:#F5F1E6;margin:0;}
+  .brand-apparel .body-copy{padding:24px 26px 8px;font-family:var(--body-font);font-size:0.86rem;line-height:1.7;color:#3a382f;background:var(--bg);}
+  .brand-apparel .body-copy p{margin:0 0 14px;}
+  .brand-apparel .cta{display:block;width:calc(100% - 52px);margin:0 26px 26px;text-align:center;font-family:var(--head-font);font-weight:600;font-size:0.8rem;letter-spacing:0.03em;padding:12px 0;border-radius:2px;text-decoration:none;background:var(--bg);border:2px solid var(--bink);color:var(--bink);}
+  .brand-apparel .bfooter{background:var(--bink);padding:16px 26px;font-family:var(--body-font);font-size:0.7rem;color:#a9a495;text-align:center;line-height:1.6;}
+
+  /* ---------- Home goods theme (Hearth & Home Co.) ---------- */
+  .brand-home{--head-font:'Fraunces',serif;--body-font:'Inter',sans-serif;--bg:#FBF3E7;--bink:#4A2E1D;--clay:#C1622D;--sage:#8A9A6E;}
+  .brand-home .email-header{background:var(--clay);padding:22px 24px;text-align:center;}
+  .brand-home .wordmark{font-family:var(--head-font);font-weight:600;font-size:1.2rem;color:#FBF3E7;}
+  .brand-home .bhero{padding:28px 26px 18px;text-align:center;background:var(--bg);}
+  .brand-home .bhero svg{width:34px;height:34px;margin:0 auto 14px;}
+  .brand-home .bhero h3{font-family:var(--head-font);font-weight:500;font-size:1.35rem;line-height:1.3;color:var(--bink);margin:0;}
+  .brand-home .body-copy{padding:18px 26px 8px;font-family:var(--body-font);font-size:0.87rem;line-height:1.7;color:#4a4136;}
+  .brand-home .body-copy p{margin:0 0 14px;}
+  .brand-home .cta{display:block;width:calc(100% - 52px);margin:6px 26px 26px;text-align:center;background:var(--sage);color:#20260f;font-family:var(--body-font);font-weight:600;font-size:0.85rem;padding:13px 0;border-radius:24px;text-decoration:none;}
+  .brand-home .bfooter{background:#F1E4D0;padding:16px 26px;font-family:var(--body-font);font-size:0.72rem;color:#8a7659;text-align:center;line-height:1.6;}
+
+  @media (max-width:600px){
+    header.hero{padding:48px 0 28px;}
+    section.project{padding:44px 0;}
+    .meta{grid-template-columns:96px 1fr;font-size:0.9rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>Blerti Daci</h1>
+    <p class="role">Email Marketing — Klaviyo &amp; Lifecycle Campaigns</p>
+    <p class="contact">Toronto, ON &nbsp;·&nbsp; (416) 587-4684 &nbsp;·&nbsp; <a href="mailto:bledaci@gmail.com">bledaci@gmail.com</a></p>
+  </header>
+
+  <div class="note">
+    <p>The campaigns below are self-directed practice projects built for fictional brands, created to demonstrate segmentation logic, lifecycle sequencing, campaign copywriting, and email design. They are not client work.</p>
+  </div>
+
+  <nav class="jump">
+    <span><a href="#lumen">Lumen &amp; Bloom — Skincare</a></span>
+    <span><a href="#marlowe">Marlowe &amp; Rhys — Apparel</a></span>
+    <span><a href="#hearth">Hearth &amp; Home Co. — Home Goods</a></span>
+  </nav>
+
+  <!-- ===================== LUMEN & BLOOM ===================== -->
+  <section class="project brand-skincare" id="lumen">
+    <div class="brand-intro">
+      <div class="kicker">Skincare · D2C</div>
+      <h2>Lumen &amp; Bloom</h2>
+      <p class="desc">New subscriber welcome series (3 emails), converting quiz-based signups into first-time buyers.</p>
+    </div>
+    <dl class="meta">
+      <dt>Goal</dt><dd>Convert new email signups into first-time buyers while establishing brand voice and product education</dd>
+      <dt>Segmentation</dt><dd>New subscribers tagged by quiz-selected skin type (dry, oily, combination), so each email references relevant products rather than a generic catalog</dd>
+    </dl>
+
+    <div class="row-label">Email sequence — full designs</div>
+    <div class="row">
+
+      <div>
+        <div class="cap">Email 1 · sent immediately</div>
+        <div class="mock">
+          <div class="inbox-strip">
+            <div class="subj">Welcome! Here's 15% off your first order</div>
+            <div class="prev">Plus: the 3-minute skincare routine our founder swears by</div>
+          </div>
+          <div class="email-header"><span class="wordmark">Lumen &amp; Bloom</span></div>
+          <div class="bhero">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 5C10 10 8 22 15 32C22 22 30 10 20 5Z" stroke="#7C9070" stroke-width="1.6"/>
+              <path d="M20 8V30" stroke="#7C9070" stroke-width="1.2"/>
+            </svg>
+            <h3>Welcome to clearer, calmer skin</h3>
+          </div>
+          <div class="body-copy">
+            <p>We started Lumen &amp; Bloom with one rule: fewer ingredients, done right. Every formula is built around what your skin actually needs — no filler, no guesswork.</p>
+            <p>As a thank-you for joining us, here's 15% off your first order. Based on your quiz answers, we've already picked out a routine that fits your skin type.</p>
+          </div>
+          <a class="cta" href="#">See my routine</a>
+          <div class="bfooter">Lumen &amp; Bloom · 128 Clearwater Ave<br>You're receiving this because you signed up at lumenandbloom.com</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="cap">Email 2 · sent day 3</div>
+        <div class="mock">
+          <div class="inbox-strip">
+            <div class="subj">The ingredient we put in everything (and why)</div>
+            <div class="prev">Hint: it's not just for hydration</div>
+          </div>
+          <div class="email-header"><span class="wordmark">Lumen &amp; Bloom</span></div>
+          <div class="bhero">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="13" stroke="#7C9070" stroke-width="1.6"/>
+              <path d="M20 10V30M10 20H30" stroke="#7C9070" stroke-width="1.2"/>
+            </svg>
+            <h3>Meet squalane, our quiet hero</h3>
+          </div>
+          <div class="body-copy">
+            <p>Nearly every Lumen &amp; Bloom formula includes plant-derived squalane. It mimics your skin's own oils, so it absorbs instantly instead of sitting on the surface.</p>
+            <p>That's why our serums feel weightless, not greasy — and why one bottle tends to replace three steps in your old routine.</p>
+          </div>
+          <a class="cta" href="#">Explore the formulas</a>
+          <div class="bfooter">Lumen &amp; Bloom · 128 Clearwater Ave<br>You're receiving this because you signed up at lumenandbloom.com</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="cap">Email 3 · sent day 6</div>
+        <div class="mock">
+          <div class="inbox-strip">
+            <div class="subj">Still thinking it over? Here's what real customers say</div>
+            <div class="prev">4.8 stars from over 2,000 reviews</div>
+          </div>
+          <div class="email-header"><span class="wordmark">Lumen &amp; Bloom</span></div>
+          <div class="bhero">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 8L23 16H31L24.5 21L27 29L20 24L13 29L15.5 21L9 16H17L20 8Z" stroke="#7C9070" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+            <h3>"My skin has never felt this calm"</h3>
+          </div>
+          <div class="body-copy">
+            <p>That's from Marisol, one of over 2,000 five-star reviews. Customers keep telling us the same thing — less redness, fewer breakouts, within the first two weeks.</p>
+            <p>Your 15% welcome discount expires in 48 hours. If you've been on the fence, this is the moment.</p>
+          </div>
+          <a class="cta" href="#">Claim my discount</a>
+          <div class="bfooter">Lumen &amp; Bloom · 128 Clearwater Ave<br>You're receiving this because you signed up at lumenandbloom.com</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== MARLOWE & RHYS ===================== -->
+  <section class="project brand-apparel" id="marlowe">
+    <div class="brand-intro">
+      <div class="kicker">Apparel · D2C</div>
+      <h2>Marlowe &amp; Rhys</h2>
+      <p class="desc">Post-purchase &amp; replenishment flow (3 emails), increasing repeat purchase rate and shortening time-to-second-order.</p>
+    </div>
+    <dl class="meta">
+      <dt>Goal</dt><dd>Increase repeat purchase rate and shorten time-to-second-order</dd>
+      <dt>Segmentation</dt><dd>Branches by product category purchased — care tips differ for denim vs. tees — and suppresses the replenishment nudge for outerwear buyers, whose repurchase timeline is longer</dd>
+    </dl>
+
+    <div class="row-label">Email sequence — full designs</div>
+    <div class="row">
+
+      <div>
+        <div class="cap">Email 1 · sent day 2 post-delivery</div>
+        <div class="mock">
+          <div class="inbox-strip">
+            <div class="subj">You're in. Here's how to make it last</div>
+            <div class="prev">Care tips for your new favorites</div>
+          </div>
+          <div class="email-header"><span class="wordmark">MARLOWE &amp; RHYS</span></div>
+          <div class="bhero">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 6L16 9L21 6L26 10L23 13V26H9V13L6 10L11 6Z" stroke="#F5F1E6" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+            <h3>Built to wear in, not wear out</h3>
+          </div>
+          <div class="body-copy">
+            <p>Your new pieces are made from long-staple organic cotton — the kind that softens with every wash instead of breaking down.</p>
+            <p>Wash cold, skip the dryer when you can, and they'll outlast most things in your closet.</p>
+          </div>
+          <a class="cta" href="#">Read the full care guide</a>
+          <div class="bfooter">MARLOWE &amp; RHYS · Made to last, responsibly<br>456 Foundry St, Unit 3</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="cap">Email 2 · sent day 21 (tee/basics buyers)</div>
+        <div class="mock">
+          <div class="inbox-strip">
+            <div class="subj">Your closet called — it wants a second tee</div>
+            <div class="prev">Restock your favorite, or try a new colorway</div>
+          </div>
+          <div class="email-header"><span class="wordmark">MARLOWE &amp; RHYS</span></div>
+          <div class="bhero">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 9L12 6H20L26 9L23 14L20 12V26H12V12L9 14L6 9Z" stroke="#F5F1E6" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+            <h3>One is never enough</h3>
+          </div>
+          <div class="body-copy">
+            <p>You picked up the Foundry Tee a few weeks back. Most people come back for a second before the month is out.</p>
+            <p>This time, maybe try it in Clay or Moss — both just restocked.</p>
+          </div>
+          <a class="cta" href="#">Shop the tee, again</a>
+          <div class="bfooter">MARLOWE &amp; RHYS · Made to last, responsibly<br>456 Foundry St, Unit 3</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="cap">Email 3 · sent day 35</div>
+        <div class="mock">
+          <div class="inbox-strip">
+            <div class="subj">A small thank-you for being part of the crew</div>
+            <div class="prev">Early access to our next drop, before anyone else</div>
+          </div>
+          <div class="email-header"><span class="wordmark">MARLOWE &amp; RHYS</span></div>
+          <div class="bhero">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 6L19 13L26 14L21 19L22 26L16 22L10 26L11 19L6 14L13 13L16 6Z" stroke="#F5F1E6" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+            <h3>You're getting in first</h3>
+          </div>
+          <div class="body-copy">
+            <p>Our next collection drops next week — but our repeat customers get 48 hours of early access before it's public.</p>
+            <p>No discount code needed. Just a thank-you for sticking around.</p>
+          </div>
+          <a class="cta" href="#">Get early access</a>
+          <div class="bfooter">MARLOWE &amp; RHYS · Made to last, responsibly<br>456 Foundry St, Unit 3</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== HEARTH & HOME CO. ===================== -->
+  <section class="project brand-home" id="hearth">
+    <div class="brand-intro">
+      <div class="kicker">Home Goods · D2C</div>
+      <h2>Hearth &amp; Home Co.</h2>
+      <p class="desc">Browse + two-stage cart abandonment, recovering lost revenue with messaging matched to intent.</p>
+    </div>
+    <dl class="meta">
+      <dt>Goal</dt><dd>Recover lost revenue from browsers and cart abandoners with messaging matched to each intent level</dd>
+      <dt>Segmentation</dt><dd>Separates browse abandonment (viewed, no add-to-cart) from cart abandonment (added, no checkout) — the two groups need very different messages</dd>
+    </dl>
+
+    <div class="row-label">Email sequence — full designs</div>
+    <div class="row">
+
+      <div>
+        <div class="cap">Browse abandonment · sent 4 hrs after visit</div>
+        <div class="mock">
+          <div class="inbox-strip">
+            <div class="subj">Still deciding on the Hearth Ceramic Set?</div>
+            <div class="prev">Here's what other customers loved about it</div>
+          </div>
+          <div class="email-header"><span class="wordmark">Hearth &amp; Home Co.</span></div>
+          <div class="bhero">
+            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 15V27H27V15" stroke="#4A2E1D" stroke-width="1.6"/>
+              <path d="M6 16L18 7L30 16" stroke="#4A2E1D" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <h3>Still on your mind?</h3>
+          </div>
+          <div class="body-copy">
+            <p>The Hearth Ceramic Set has quietly become one of our best-loved pieces — hand-glazed, oven safe, and made to be used daily, not saved for company.</p>
+            <p>"Simple, sturdy, and looks like it cost twice as much." — a recent cu
